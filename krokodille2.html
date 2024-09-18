@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div>Poeng:</div>
+    <div id="scoreBoard">0</div>
+    <img src ="krokodille.png"/>
+    <div id="firstNum">-</div>
+    <input type="text" onchange="saveInput(this.value)"></input>
+    <div id="secondNum">-</div>
+    <button onclick="submit()">Submit</button> 
+    <button onclick="reset()">Reset</button>
+
+    <script> // Skuffeseksjoner
+        let firstNum = 0; // tall nr 1
+        let secondNum = 0; // tall nr 2
+        let score = 0; // Score, sendes til scoreBoard
+        let answer; // Tegnet fra input, sendes videre til 
+
+        function saveInput(input){
+            answer = input // Tegnet man skriver inn i input-boksen
+        }
+
+        function reset(){
+            updateNumbers(); // Resette til nye tall.
+        }
+
+        function updateNumbers(){
+            firstNum = getRandomNumber(); // Genererer random nummer 
+            secondNum = getRandomNumber(); // Genererer random nummer
+            document.getElementById("firstNum").innerHTML = firstNum;
+            document.getElementById("secondNum").innerHTML = secondNum;
+        }
+
+        function getRandomNumber(){
+            return Math.floor(Math.random() * 10); // Sender ut ett helt (flatt) tall mellom 0 og 9.
+                                                   // Returneres til firstNum og secondNum
+        }
+        function submit(){
+            if (firstNum == secondNum && answer =='='){
+                score++; // Hvis begge tall er like.
+            }
+            else if(firstNum < secondNum && answer =='<'){
+                score++; // Hvis tall 1 er mindre enn tall 2
+            }
+            else if(firstNum > secondNum && answer =='>'){
+                score++; // Hvis tall 1 er større enn tall 2
+            }
+            else{
+                score--; // Hvis man taster inn alt annet enn "<", ">" eller "="
+            }
+            document.getElementById("scoreBoard").innerHTML = score;
+            updateNumbers(); // Refresher talla så ikke man kan submitte samme svar flere ganger på rad.
+        }
+        /*
+        if (firstNum == 10){ // Hvis nummer er 10
+        console.log ("Correct!");
+        }
+        else if(firstNum <= 9){ // Hvis nummer er 9 eller lavere
+        console.log ("Wrong!");
+        }
+        if (firstNum == 9){ // Hvis nummer er 9
+        console.log ("Correct!");
+        }
+        if (firstNum <= 10){ // Hvis nummer er 10
+        console.log ("Correct!");
+        }
+        else if(firstNum <= 8){ // Hvis nummer er 8 eller lavere
+        console.log ("Wrong!");
+        }
+*/
+    </script>
+</body>
+<style>
+    img{
+        height: 100px; 
+        width: 100px;
+    }
+    input{
+        width: 50px;
+    }
+</style>
+</html>
